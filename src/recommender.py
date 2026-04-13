@@ -46,34 +46,47 @@ class Recommender:
         # TODO: Implement explanation logic
         return "Explanation placeholder"
 
-def load_songs(csv_path: str) -> List[Dict]:
-   import csv
-
 def load_songs(filepath):
     songs = []
     with open(filepath, mode='r') as file:
         reader = csv.DictReader(file)
         for row in reader:
-            # Convert numeric fields
             row['energy'] = float(row['energy'])
             row['tempo_bpm'] = int(row['tempo_bpm'])
             songs.append(row)
     return songs
 
 def score_song(user_prefs: Dict, song: Dict) -> Tuple[float, List[str]]:
-    """
-    Scores a single song against user preferences.
-    Required by recommend_songs() and src/main.py
-    """
-    # TODO: Implement scoring logic using your Algorithm Recipe from Phase 2.
-    # Expected return format: (score, reasons)
-    return []
+    score = 0
+    reasons = []
+
+    # Genre match
+    if song['genre'] == user_prefs['genre']:
+        score += 2.0
+        reasons.append("Genre match (+2.0)")
+
+    # Mood match
+    if song['mood'] == user_prefs['mood']:
+        score += 1.0
+        reasons.append("Mood match (+1.0)")
+
+    # Energy similarity
+    energy_diff = abs(song['energy'] - user_prefs['energy'])
+    energy_score = max(0, 1 - energy_diff)
+    score += energy_score
+    reasons.append(f"Energy similarity (+{energy_score:.2f})")
+
+    return score, reasons
 
 def recommend_songs(user_prefs: Dict, songs: List[Dict], k: int = 5) -> List[Tuple[Dict, float, str]]:
-    """
-    Functional implementation of the recommendation logic.
-    Required by src/main.py
-    """
-    # TODO: Implement scoring and ranking logic
-    # Expected return format: (song_dict, score, explanation)
-    return []
+    scored = []
+
+    for song in songs:
+        score, reasons = score_song(user_prefs, song)
+        explanation = ", ".join(reasons)
+        scored.append((song, score, explanation))
+
+    # Sort by score descending
+    scored = sorted(scored, key=lambda x: x[1], reverse=True)
+
+    return scored[:k]

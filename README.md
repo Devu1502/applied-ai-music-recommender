@@ -41,6 +41,7 @@ Each song is given a score based on:
 - + (1 - energy difference) to reward songs with similar energy levels
 
 Songs closer to the user’s energy preference receive higher scores.
+Energy similarity is calculated as (1 - absolute difference).
 
 ### Recommendation Process
 
@@ -52,6 +53,32 @@ Songs closer to the user’s energy preference receive higher scores.
 ### Potential Bias
 
 This system may over-prioritize genre and repeatedly recommend similar songs, creating a “filter bubble.” It may also ignore good matches in mood or energy if the genre does not match.
+
+### System Flow
+
+```mermaid
+flowchart LR
+    A[User Preferences] --> B[Score Each Song]
+    B --> C[Apply Scoring Logic]
+    C --> D[Sort by Score]
+    D --> E[Top K Recommendations]
+```
+
+### User Profile Design
+
+The user profile is defined as:
+
+- Genre: pop  
+- Mood: happy  
+- Energy: 0.8  
+
+This profile represents a user who prefers upbeat, energetic music.
+
+This combination allows the system to differentiate between different styles. For example:
+- "Intense rock" songs may match energy but not genre
+- "Chill lofi" songs may match mood but not energy
+
+Because multiple features are used together, the recommender can distinguish between different types of music rather than treating all songs as similar.
 
 ---
 

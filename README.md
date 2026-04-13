@@ -196,7 +196,7 @@ Try to avoid code in this section, treat it like an explanation to a non program
 
 Here is an example of the recommender system running in the terminal:
 
-![CLI Output](/Users/nanda/Documents/ai110-module3show-musicrecommendersimulation-starter/CLI.png)
+![CLI Output](CLI.png)
 
 
 ---

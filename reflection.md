@@ -1,3 +1,6 @@
+I was surprised that energy dominated results even when genre didn’t match.
+This showed me how sensitive recommender systems are to weight tuning.
+
 High-Energy Pop vs Chill Lofi:
 High-Energy Pop gives fast and energetic songs, while Chill Lofi gives slow and calm songs. This makes sense because energy preference is very different.
 

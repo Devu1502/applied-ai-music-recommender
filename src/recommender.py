@@ -39,12 +39,30 @@ class Recommender:
         self.songs = songs
 
     def recommend(self, user: UserProfile, k: int = 5) -> List[Song]:
-        # TODO: Implement recommendation logic
-        return self.songs[:k]
+        user_prefs = {
+            "genre": user.favorite_genre,
+            "mood": user.favorite_mood,
+            "energy": user.target_energy
+        }
+
+        scored = [
+            (song, *score_song(user_prefs, song.__dict__))
+            for song in self.songs
+        ]
+
+        ranked = sorted(scored, key=lambda x: x[1], reverse=True)
+
+        return [s[0] for s in ranked[:k]]
 
     def explain_recommendation(self, user: UserProfile, song: Song) -> str:
-        # TODO: Implement explanation logic
-        return "Explanation placeholder"
+        user_prefs = {
+            "genre": user.favorite_genre,
+            "mood": user.favorite_mood,
+            "energy": user.target_energy
+        }
+
+        _, reasons = score_song(user_prefs, song.__dict__)
+        return ", ".join(reasons)
 
 def load_songs(filepath):
     """Load and type-cast songs from a CSV file into a list of dicts."""

@@ -1,111 +1,90 @@
-# 🎧 Model Card: Music Recommender Simulation
+# 🎧 Model Card - Music Recommender Simulation
 
-## 1. Model Name  
+## 1. Model Name
 
-Give your model a short, descriptive name.  
-Example: **VibeFinder 1.0**  
-
----
-
-## 2. Intended Use  
-
-Describe what your recommender is designed to do and who it is for. 
-
-Prompts:  
-
-- What kind of recommendations does it generate  
-- What assumptions does it make about the user  
-- Is this for real users or classroom exploration  
+MusicMatch 1.0
 
 ---
 
-## 3. How the Model Works  
+## 2. Intended Use
 
-Explain your scoring approach in simple language.  
+This system recommends songs based on a user’s preferred genre, mood, and energy level. It tries to find songs that are most similar to the user’s taste.
 
-Prompts:  
-
-- What features of each song are used (genre, energy, mood, etc.)  
-- What user preferences are considered  
-- How does the model turn those into a score  
-- What changes did you make from the starter logic  
-
-Avoid code here. Pretend you are explaining the idea to a friend who does not program.
 
 ---
 
-## 4. Data  
+## 3. How It Works (Short Explanation)
 
-Describe the dataset the model uses.  
+The system looks at three main things: genre, mood, and energy.
 
-Prompts:  
+Each song has these features, and the user also gives their preferred genre, mood, and energy level.
 
-- How many songs are in the catalog  
-- What genres or moods are represented  
-- Did you add or remove data  
-- Are there parts of musical taste missing in the dataset  
+The system compares each song to the user’s preferences. If the genre matches, it adds some points. If the mood matches, it adds more points. Then it checks how close the energy level is, and gives a higher score if it is very similar.
 
----
+Finally, it adds all these points together to get a total score for each song. Songs with higher scores are recommended first.
 
-## 5. Strengths  
-
-Where does your system seem to work well  
-
-Prompts:  
-
-- User types for which it gives reasonable results  
-- Any patterns you think your scoring captures correctly  
-- Cases where the recommendations matched your intuition  
 
 ---
 
-## 6. Limitations and Bias 
+## 4. Data
 
-Where the system struggles or behaves unfairly. 
+The dataset contains about 15 songs stored in `data/songs.csv`.
 
-Prompts:  
+I added about 5 songs to the dataset
 
-- Features it does not consider  
-- Genres or moods that are underrepresented  
-- Cases where the system overfits to one preference  
-- Ways the scoring might unintentionally favor some users  
+The songs include a mix of genres like pop, rock, lofi, ambient, jazz, edm, synthwave, disco, and world. The moods include happy, chill, intense, relaxed, calm, focused, moody, peaceful, and energetic.
+
+Overall, the dataset feels small and mostly reflects general modern music tastes, especially more popular or common styles.
+---
+
+## 5. Strengths
+
+The recommender works well when the user has clear preferences. For example, the High-Energy Pop profile gave songs that were both energetic and matched the genre, which felt accurate.
+
+It also works well for profiles like Chill Lofi, where the system was able to return calm and low-energy songs that match the vibe.
+
+Another strength is that the system is simple and easy to understand. The scoring is transparent, so it is clear why each song is recommended based on genre, mood, and energy.
 
 ---
 
-## 7. Evaluation  
+## 6. Limitations and Bias
 
-How you checked whether the recommender behaved as expected. 
+The system is biased toward energy because energy has the biggest weight in the scoring. Because of this, songs with similar energy keep showing up even if the genre or mood does not match well.
 
-Prompts:  
+Also, some users are not handled properly. For example, if a user chooses a mood like "sad" but there are no songs with that mood in the dataset, then the system just ignores mood completely.
 
-- Which user profiles you tested  
-- What you looked for in the recommendations  
-- What surprised you  
-- Any simple tests or comparisons you ran  
-
-No need for numeric metrics unless you created some.
+Another issue is that the dataset is very small, so the same songs appear again and again. This creates a filter bubble where users don’t get much variety in recommendations.
 
 ---
 
-## 8. Future Work  
+## 7. Evaluation
 
-Ideas for how you would improve the model next.  
+I tested the system using different user profiles like High-Energy Pop, Chill Lofi, Deep Intense Rock, Conflicting Mood, and No Preference.
 
-Prompts:  
+I noticed that when the preferences are clear, the results look correct. For example, High-Energy Pop gives songs that are upbeat and energetic.
 
-- Additional features or preferences  
-- Better ways to explain recommendations  
-- Improving diversity among the top results  
-- Handling more complex user tastes  
+One surprising thing was that some songs showed up in multiple profiles. This happens because energy has a strong influence, so songs with similar energy keep ranking high even if other features don’t match.
+
+Also, when the user has no preference or conflicting preferences, the system mostly depends on energy, which makes the recommendations less meaningful.
 
 ---
 
-## 9. Personal Reflection  
+## 8. Future Work
 
-A few sentences about your experience.  
+If I had more time, I would improve the recommender in a few ways.
 
-Prompts:  
+First, I would add more songs to the dataset so the system can give more diverse recommendations.
 
-- What you learned about recommender systems  
-- Something unexpected or interesting you discovered  
-- How this changed the way you think about music recommendation apps  
+Second, I would balance the scoring weights so that energy does not dominate too much and genre and mood also have a stronger impact.
+
+Third, I would improve mood matching so similar words (like sad and moody) can still match instead of requiring exact words.
+
+---
+
+## 9. Personal Reflection
+
+Building this system showed me how small changes in scoring can have a big impact on results. I was surprised that energy had such a strong effect, and that the same songs kept appearing across different profiles.
+
+This made me realize that real music recommenders are more complex and need to balance multiple factors carefully to avoid repeating the same content.
+
+I also learned that human judgment still really matters because the system cannot fully understand emotions or context. For example, it cannot truly understand what someone means by "sad" or "relaxing" unless it is clearly defined in the data.

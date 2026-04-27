@@ -13,6 +13,32 @@ Your goal is to:
 
 This project builds a simple content-based music recommender system. It takes a user’s preferences like genre, mood, and energy level, and compares them with a dataset of songs. Each song is given a score based on how closely it matches the user’s taste, and the system recommends the highest scoring songs. The goal is to simulate how real-world platforms like Spotify suggest music using structured data and ranking logic.
 
+## Applied AI System Extension
+
+This project extends a previous music recommender simulation into a full applied AI system.
+
+The original system focused on scoring and ranking songs based on user preferences. In this extended version, the system has been improved with:
+
+- A structured evaluation module to test reliability across multiple user profiles
+- Confidence scoring
+- Guardrails to handle incomplete or invalid user inputs
+- A modular architecture separating recommendation, evaluation, and output layers
+
+These improvements improves the project from a simple simulation into a more advanced AI system.
+
+## System Architecture
+
+The system is designed as a modular pipeline where user preferences flow through multiple components.
+
+1. The recommender scores each song based on user preferences
+2. A ranking module selects the top K results
+3. A confidence layer evaluates how strong each recommendation is
+4. An evaluation module tests system performance across multiple profiles
+
+This design ensures separation of concerns and makes the system easier to test and extend.
+
+![System Diagram](assets/system_diagram.png)
+
 ---
 
 ## How The System Works
@@ -179,7 +205,8 @@ Here is an example of the recommender system running in the terminal:
 
 ![CLI Output](assets/CLI.png)
 
-#Applied System
+
+# APPLIED SYSTEM UPDATES
 
 
 ## Reliability & Evaluation

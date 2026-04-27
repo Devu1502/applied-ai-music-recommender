@@ -166,18 +166,20 @@ So overall, songs that match all features clearly rank higher, which is why "Sun
 
 Screenshots of terminal outputs for each profile are included below:
 
-![High Energy](high_energy.png)  
-![Chill Lofi](chill_lofi.png)  
-![Rock](rock.png)  
-![Conflicting](conflict.png)  
-![No Preference](no_pref.png)  
+![High Energy](assets/high_energy.png)  
+![Chill Lofi](assets/chill_lofi.png)  
+![Rock](assets/rock.png)  
+![Conflicting](assets/conflict.png)  
+![No Preference](assets/no_pref.png)  
 
 
 ## CLI Output Example
 
 Here is an example of the recommender system running in the terminal:
 
-![CLI Output](CLI.png)
+![CLI Output](assets/CLI.png)
+
+#Applied System
 
 
 ## Reliability & Evaluation
@@ -191,7 +193,28 @@ The system runs multiple user profiles and looks at:
 
 This helps me see if the system is working properly for different types of users or if it keeps giving similar results.
 
-![Evaluation](evaluation.png)
+![Evaluation](assets/evaluation.png)
+
+## Confidence and Guardrails
+
+I added a confidence score to show how strong each recommendation is.
+
+The confidence is calculated using:
+
+confidence = score / max_possible_score
+
+This helps understand how well a song actually matches the user’s preferences, instead of just looking at the raw score.
+
+I also added some basic guardrails to make the system more reliable. For example:
+- If the user doesn’t give a genre or mood, the system still works and mentions that preferences are incomplete
+- If the energy value is invalid, it resets it to a default value (0.5)
+
+These changes make sure the system doesn’t break and still gives reasonable recommendations even when the input is not perfect.
+
+![Confidence](assets/confidence1.png)
+![Confidence](assets/confidence2.png)
+![Confidence](assets/confidence3.png)
+![Confidence](assets/confidence4.png)
 
 ---
 

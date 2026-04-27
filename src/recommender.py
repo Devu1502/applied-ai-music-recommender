@@ -86,6 +86,15 @@ def score_song(user_prefs: Dict, song: Dict) -> Tuple[float, List[str]]:
     """Score a single song against user preferences and return the score with reasons."""
     score = 0.0
     reasons = []
+
+    # Guardrails for missing/invalid input
+    if not user_prefs.get("genre") or not user_prefs.get("mood"):
+        reasons.append("Partial preferences provided")
+
+    if not (0.0 <= user_prefs.get("energy", 0.5) <= 1.0):
+        user_prefs["energy"] = 0.5
+        reasons.append("Energy normalized to default (0.5)")
+
     # Genre weight reduced
     if song['genre'] == user_prefs['genre']:
         score += 1.0
@@ -105,9 +114,21 @@ def score_song(user_prefs: Dict, song: Dict) -> Tuple[float, List[str]]:
 
 def recommend_songs(user_prefs: Dict, songs: List[Dict], k: int = 5) -> List[Tuple[Dict, float, str]]:
     """Return the top-k songs ranked by score for the given user preferences."""
+    
     scored = [
         (song, score, ", ".join(reasons))
         for song in songs
         for score, reasons in (score_song(user_prefs, song),)
     ]
-    return sorted(scored, key=lambda x: x[1], reverse=True)[:k]
+
+    ranked = sorted(scored, key=lambda x: x[1], reverse=True)[:k]
+
+    max_score_possible = 4.0
+    
+    final_results = []
+    for song, score, explanation in ranked:
+        confidence = score / max_score_possible
+        explanation_with_conf = f"{explanation} | Confidence: {confidence:.2f}"
+        final_results.append((song, score, explanation_with_conf))
+
+    return final_results

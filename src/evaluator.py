@@ -22,5 +22,7 @@ def evaluate_profiles(user_profiles: Dict, songs: List[Dict]) -> None:
 
         unique_genres = len(set(song['genre'] for song, _, _ in recs))
         print(f" Genre Diversity (top 5): {unique_genres}")
+        print(f" Top Recommendation: {recs[0][0]['title']}")
+        print(f" Scores: {scores}")
 
         print("-" * 40)

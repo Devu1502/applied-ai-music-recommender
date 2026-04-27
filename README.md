@@ -13,11 +13,17 @@ Your goal is to:
 
 This project builds a simple content-based music recommender system. It takes a user’s preferences like genre, mood, and energy level, and compares them with a dataset of songs. Each song is given a score based on how closely it matches the user’s taste, and the system recommends the highest scoring songs. The goal is to simulate how real-world platforms like Spotify suggest music using structured data and ranking logic.
 
+## Demo Video
+
+Watch the full system walkthrough here:  
+https://www.loom.com/share/6540fad032f34d23a31af6bae7b683ce
+
 ## Applied AI System Extension
 
-This project extends a previous music recommender simulation into a full applied AI system.
+This project builds on my earlier Module 3-4 project: "Music Recommender Simulation".
 
-The original system focused on scoring and ranking songs based on user preferences. In this extended version, the system has been improved with:
+The original version implemented a basic content-based recommender that scored songs using genre, mood, and energy. It generated ranked recommendations but did not include evaluation, confidence scoring, or system-level reliability testing.
+In this extended version, the system has been improved with:
 
 - A structured evaluation module to test reliability across multiple user profiles
 - Confidence scoring
@@ -171,6 +177,14 @@ I tested the recommender system using multiple user profiles, including both nor
 - When no preferences are provided, the system relies mostly on energy similarity, resulting in more generic recommendations.
 - The model does not penalize incorrect matches, which limits its ability to distinguish poor fits.
 
+## Design Decisions
+
+I chose a content-based recommender because it is simple, interpretable, and works well with small datasets.
+
+I prioritized energy similarity over genre to increase flexibility and allow more diverse recommendations. However, this introduced a trade-off: while recommendations became more varied, they were sometimes less accurate for users with strong genre preferences.
+
+I also added a separate evaluation module instead of embedding evaluation inside the recommender. This keeps the system modular and easier to extend, but adds an extra layer of complexity.
+
 #### Accuracy and Surprises
 
 For the "High-Energy Pop" profile, the recommendations felt accurate because the top songs matched both genre and energy closely. Songs like "Sunrise City" ranked highly because of strong alignment with all features.
@@ -221,6 +235,16 @@ The system runs multiple user profiles and looks at:
 This helps me see if the system is working properly for different types of users or if it keeps giving similar results.
 
 ![Evaluation](assets/evaluation.png)
+
+### Testing Summary
+
+The system was tested across 5 different user profiles, including edge cases such as conflicting preferences and missing inputs.
+
+The recommender performed well when user preferences were clear, producing high-confidence and relevant recommendations. Confidence scores typically ranged between 0.7 and 0.95 for strong matches.
+
+However, performance dropped in edge cases. When preferences were missing or conflicting, the system relied heavily on energy similarity, resulting in less personalized recommendations.
+
+After adding guardrails and confidence scoring, the system became more stable and interpretable, even when inputs were incomplete.
 
 ## Confidence and Guardrails
 

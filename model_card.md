@@ -88,3 +88,21 @@ Building this system showed me how small changes in scoring can have a big impac
 This made me realize that real music recommenders are more complex and need to balance multiple factors carefully to avoid repeating the same content.
 
 I also learned that human judgment still really matters because the system cannot fully understand emotions or context. For example, it cannot truly understand what someone means by "sad" or "relaxing" unless it is clearly defined in the data.
+
+---
+
+## 10. Reflection and Ethics
+
+### Potential Misuse
+
+This system could be misused by over-personalizing recommendations and limiting user exposure to diverse content, creating a filter bubble. Because it relies heavily on user preferences, it may reinforce narrow listening habits instead of encouraging exploration.
+
+To reduce this risk, future versions of the system could include diversity constraints or introduce a small level of randomness in recommendations to expose users to a wider range of music.
+
+### AI Collaboration Reflection
+
+AI tools were helpful in generating initial ideas for the scoring logic and structuring the recommender functions. For example, AI helped suggest how to calculate energy similarity, which improved how well songs matched user preferences.
+
+However, some AI suggestions were overly simplistic or just did not make sense. For example, early weighting strategies did not handle trade-offs between genre and energy effectively. I had to manually adjust the weights and test different configurations to improve the system’s performance.
+
+This showed that while AI can help with development, human judgment is still necessary to validate the system.

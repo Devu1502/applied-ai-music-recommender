@@ -179,6 +179,20 @@ Here is an example of the recommender system running in the terminal:
 
 ![CLI Output](CLI.png)
 
+
+## Reliability & Evaluation
+
+I added a small evaluation step to check how well the recommender works.
+
+The system runs multiple user profiles and looks at:
+- Average score of recommendations  
+- Highest and lowest scores  
+- How many different genres appear in the top results  
+
+This helps me see if the system is working properly for different types of users or if it keeps giving similar results.
+
+![Evaluation](evaluation.png)
+
 ---
 
 ## Limitations and Risks

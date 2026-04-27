@@ -10,12 +10,12 @@ You will implement the functions in recommender.py:
 """
 
 from src.recommender import load_songs, recommend_songs
+from src.evaluator import evaluate_profiles
 
 
 def main() -> None:
-    songs = load_songs("data/songs.csv") 
+    songs = load_songs("data/songs.csv")
 
-    # Starter example profile
     user_prefs = {"genre": "pop", "mood": "happy", "energy": 0.8}
 
     user_profiles = {
@@ -57,6 +57,7 @@ def main() -> None:
             print(f"\n{i}. {song['title']} by {song['artist']}")
             print(f"   Score : {score:.2f}")
             print(f"   Why   : {explanation}")
+    evaluate_profiles(user_profiles, songs)
 
     recommendations = recommend_songs(user_prefs, songs, k=5)
 
